@@ -77,7 +77,7 @@ class Continuous_MountainCarEnv(gym.Env):
         self.max_action = 1.0
         self.min_position = -1.2
         self.max_position = 0.6
-        self.max_speed = 0.07
+        self.max_speed = 1.5
         self.goal_position = (
             0.45  # was 0.5 in gym, 0.45 in Arnaud de Broissia's version
         )
@@ -132,11 +132,11 @@ class Continuous_MountainCarEnv(gym.Env):
 
     def reset(self, *, seed: Optional[int] = None, options: Optional[dict] = None):
         super().reset(seed=seed)
-        self.state = np.array([self.np_random.uniform(low=-0.6, high=-0.4), 0])
+        self.state = np.array([self.np_random.uniform(low=-1, high=0.2), 0])
         return np.array(self.state, dtype=np.float32)
 
     def _height(self, xs):
-        return np.sin(3 * xs) * 0.45 + 0.55
+        return np.sin(3 * xs) + 0.1
 
     def render(self, mode="human"):
         screen_width = 600
